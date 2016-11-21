@@ -19,7 +19,6 @@
 # TODO:
 # Ability to set CPU/Memory reservations
 
-from ansible.module_utils.six.moves import iterkeys
 
 try:
     import json
@@ -988,7 +987,7 @@ def reconfigure_vm(vsphere_client, vm, module, esxi, resource_pool, cluster_name
         disk_num = 0
         dev_changes = []
         disks_changed = {}
-        for disk in sorted(iterkeys(vm_disk)):
+        for disk in sorted(vm_disk):
             try:
                 disksize = int(vm_disk[disk]['size_gb'])
                 # Convert the disk size to kilobytes
@@ -1344,7 +1343,7 @@ def create_vm(vsphere_client, module, esxi, resource_pool, cluster_name, guest, 
     if vm_disk:
         disk_num = 0
         disk_key = 0
-        for disk in sorted(iterkeys(vm_disk)):
+        for disk in sorted(vm_disk):
             try:
                 datastore = vm_disk[disk]['datastore']
             except KeyError:
@@ -1400,7 +1399,7 @@ def create_vm(vsphere_client, module, esxi, resource_pool, cluster_name, guest, 
         add_floppy(module, vsphere_client, config_target, config, devices,
                   default_devs, floppy_type, floppy_image_path)
     if vm_nic:
-        for nic in sorted(iterkeys(vm_nic)):
+        for nic in sorted(vm_nic):
             try:
                 nictype = vm_nic[nic]['type']
             except KeyError:

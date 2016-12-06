@@ -445,7 +445,7 @@ def config_igmp_snooping(delta, existing, default=False):
 
     commands = []
     command = None
-    for key, value in delta.iteritems():
+    for key, value in delta.items():
         if value:
             if default and key == 'group_timeout':
                 if existing.get(key):
@@ -473,7 +473,7 @@ def get_igmp_snooping_defaults():
                 report_supp=report_supp, v3_report_supp=v3_report_supp,
                 group_timeout=group_timeout)
 
-    default = dict((param, value) for (param, value) in args.iteritems()
+    default = dict((param, value) for (param, value) in args.items()
                    if value is not None)
 
     return default
@@ -502,7 +502,7 @@ def main():
                 report_supp=report_supp, v3_report_supp=v3_report_supp,
                 group_timeout=group_timeout)
 
-    proposed = dict((param, value) for (param, value) in args.iteritems()
+    proposed = dict((param, value) for (param, value) in args.items()
                     if value is not None)
 
     existing = get_igmp_snooping(module)
@@ -512,7 +512,7 @@ def main():
     commands = []
     if state == 'present':
         delta = dict(
-                    set(proposed.iteritems()).difference(existing.iteritems())
+                    set(proposed.items()).difference(existing.items())
                     )
         if delta:
             command = config_igmp_snooping(delta, existing)
@@ -521,7 +521,7 @@ def main():
     elif state == 'default':
         proposed = get_igmp_snooping_defaults()
         delta = dict(
-                     set(proposed.iteritems()).difference(existing.iteritems())
+                     set(proposed.items()).difference(existing.items())
                     )
         if delta:
             command = config_igmp_snooping(delta, existing, default=True)
